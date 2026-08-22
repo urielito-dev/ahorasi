@@ -427,7 +427,9 @@ boton.addEventListener("click", () => {
 
                 setTimeout(() => {
 
-                    document.querySelector(".contenedor").style.display = "none";
+                    document.body.innerHTML = "";
+
+                    document.body.style.background = "#000";
 
                 }, 1000);
 
