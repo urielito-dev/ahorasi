@@ -1,5 +1,22 @@
 // =================================
-// CANVAS
+// ELEMENTOS DE LA PÁGINA
+// =================================
+
+const boton =
+    document.getElementById("boton");
+
+const cargaContenedor =
+    document.getElementById("carga-contenedor");
+
+const barra =
+    document.getElementById("barra");
+
+const porcentaje =
+    document.getElementById("porcentaje");
+
+
+// =================================
+// CANVAS DE ESTRELLAS
 // =================================
 
 const canvas =
@@ -90,15 +107,8 @@ function dibujarEstrellas() {
         const estrella of estrellas
     ) {
 
-
-        // -------------------------
-        // TITILEO
-        // -------------------------
-
         estrella.brillo +=
-
-            estrella.velocidadBrillo
-            *
+            estrella.velocidadBrillo *
             estrella.direccion;
 
 
@@ -122,10 +132,6 @@ function dibujarEstrellas() {
         }
 
 
-        // -------------------------
-        // DIBUJAR
-        // -------------------------
-
         ctx.beginPath();
 
 
@@ -144,7 +150,6 @@ function dibujarEstrellas() {
 
 
         ctx.fillStyle =
-
             `rgba(
                 255,
                 255,
@@ -213,14 +218,9 @@ function dibujarEstrellasFugaces() {
         i--
     ) {
 
-
         const estrella =
             estrellasFugaces[i];
 
-
-        // -------------------------
-        // MOVIMIENTO
-        // -------------------------
 
         estrella.x +=
             estrella.velocidad;
@@ -230,20 +230,11 @@ function dibujarEstrellasFugaces() {
             estrella.velocidad * 0.45;
 
 
-        // -------------------------
-        // DESAPARECER
-        // -------------------------
-
         estrella.vida -=
             0.018;
 
 
-        // -------------------------
-        // COLA
-        // -------------------------
-
         const gradiente =
-
             ctx.createLinearGradient(
 
                 estrella.x,
@@ -310,10 +301,6 @@ function dibujarEstrellasFugaces() {
         ctx.stroke();
 
 
-        // -------------------------
-        // ELIMINAR
-        // -------------------------
-
         if (
 
             estrella.vida <= 0 ||
@@ -354,7 +341,7 @@ setInterval(() => {
 
 
 // =================================
-// ANIMACIÓN PRINCIPAL
+// ANIMACIÓN DEL CIELO
 // =================================
 
 function animar() {
@@ -373,7 +360,6 @@ function animar() {
 
     dibujarEstrellas();
 
-
     dibujarEstrellasFugaces();
 
 
@@ -384,75 +370,86 @@ function animar() {
 
 
 animar();
+
+
 // =================================
 // BARRA DE CARGA
 // =================================
 
-const cargaContenedor =
-    document.getElementById("carga-contenedor");
+boton.addEventListener(
+    "click",
+    () => {
 
-const barra =
-    document.getElementById("barra");
-
-const porcentaje =
-    document.getElementById("porcentaje");
-
-
-boton.addEventListener("click", () => {
-
-    // Ocultar botón
-    boton.style.display = "none";
-
-    // Mostrar barra
-    cargaContenedor.style.display =
-        "block";
-
-    // Progreso
-    let progreso = 0;
-
-    const intervalo =
-        setInterval(() => {
-
-            progreso++;
-
-            barra.style.width =
-                progreso + "%";
-
-            porcentaje.textContent =
-                progreso + "%";
-
-            if (progreso >= 100) {
-
-                clearInterval(intervalo);
-
-                setTimeout(() => {
-
-                    // Eliminar todo lo anterior
-                    document.body.innerHTML = "";
-
-                    // Fondo negro
-                    document.body.style.backgroundColor = "black";
+        // Ocultar botón
+        boton.style.display =
+            "none";
 
 
-                    // Iniciar cubo 3D
-                    iniciarCubo3D();
+        // Mostrar barra
+        cargaContenedor.style.display =
+            "block";
 
-                }, 1000);
 
-            }
+        let progreso = 0;
 
-        }, 50);
 
-});
+        const intervalo =
+            setInterval(() => {
+
+                progreso++;
+
+
+                barra.style.width =
+                    progreso + "%";
+
+
+                porcentaje.textContent =
+                    progreso + "%";
+
+
+                // =========================
+                // TERMINÓ LA BARRA
+                // =========================
+
+                if (
+                    progreso >= 100
+                ) {
+
+                    clearInterval(
+                        intervalo
+                    );
+
+
+                    setTimeout(() => {
+
+                        // Eliminar pantalla inicial
+                        document.body.innerHTML = "";
+
+
+                        // Fondo negro
+                        document.body.style.backgroundColor =
+                            "black";
+
+
+                        // Crear cubo
+                        iniciarCubo3D();
+
+                    }, 1000);
+
+                }
+
+            }, 50);
+
+    }
+);
+
 
 // =================================
-// PRUEBA 3D
+// THREE.JS
 // =================================
 
 import * as THREE from "three";
 
-import { OrbitControls } from
-    "three/addons/controls/OrbitControls.js";
 
 // =================================
 // CUBO 3D
@@ -460,28 +457,57 @@ import { OrbitControls } from
 
 function iniciarCubo3D() {
 
+    // =============================
+    // ESCENA
+    // =============================
+
     const escena =
         new THREE.Scene();
 
 
+    // =============================
+    // CÁMARA
+    // =============================
+
     const camara =
         new THREE.PerspectiveCamera(
+
             75,
-            window.innerWidth / window.innerHeight,
+
+            window.innerWidth /
+                window.innerHeight,
+
             0.1,
+
             1000
         );
 
 
+    // =============================
+    // RENDERIZADOR
+    // =============================
+
     const renderizador =
         new THREE.WebGLRenderer({
+
             antialias: true
+
         });
 
 
     renderizador.setSize(
+
         window.innerWidth,
+
         window.innerHeight
+    );
+
+
+    renderizador.setPixelRatio(
+        Math.min(
+            window.devicePixelRatio,
+            2
+        )
     );
 
 
@@ -501,47 +527,42 @@ function iniciarCubo3D() {
 
     const geometria =
         new THREE.BoxGeometry(
+
             2,
+
             2,
+
             2
         );
 
 
     const material =
         new THREE.MeshBasicMaterial({
+
             color: 0xff0000
+
         });
 
 
     const cubo =
         new THREE.Mesh(
+
             geometria,
+
             material
         );
 
 
-    escena.add(cubo);
+    escena.add(
+        cubo
+    );
 
 
     // =============================
-    // CÁMARA
+    // POSICIÓN DE LA CÁMARA
     // =============================
 
     camara.position.z = 5;
-
-    // =============================
-    // CONTROLES DE CÁMARA
-    // =============================
-
-    const controles =
-        new OrbitControls(
-            camara,
-            renderizador.domElement
-        );
-
-    controles.enableDamping = true;
-
-    controles.dampingFactor = 0.05;
 
 
     // =============================
@@ -555,34 +576,18 @@ function iniciarCubo3D() {
         );
 
 
-        cubo.rotation.x += 0.01;
-
-        cubo.rotation.y += 0.01;
-
-        function animarCubo() {
-
-    requestAnimationFrame(
-        animarCubo
-    );
+        cubo.rotation.x +=
+            0.01;
 
 
-    cubo.rotation.x += 0.01;
-
-    cubo.rotation.y += 0.01;
-
-
-    controles.update();
-
-    renderizador.render(
-        escena,
-        camara
-    );
-
-}
+        cubo.rotation.y +=
+            0.01;
 
 
         renderizador.render(
+
             escena,
+
             camara
         );
 
@@ -590,5 +595,32 @@ function iniciarCubo3D() {
 
 
     animarCubo();
+
+
+    // =============================
+    // AJUSTAR AL CAMBIAR TAMAÑO
+    // =============================
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            camara.aspect =
+                window.innerWidth /
+                window.innerHeight;
+
+
+            camara.updateProjectionMatrix();
+
+
+            renderizador.setSize(
+
+                window.innerWidth,
+
+                window.innerHeight
+            );
+
+        }
+    );
 
 }
