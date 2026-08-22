@@ -427,10 +427,15 @@ boton.addEventListener("click", () => {
 
                 setTimeout(() => {
 
+                    // Eliminar todo lo anterior
                     document.body.innerHTML = "";
 
-                    document.body.style.background = "#000";
+                    // Fondo negro
+                    document.body.style.backgroundColor = "black";
 
+
+                    // Iniciar cubo 3D
+                    iniciarCubo3D();
 
                 }, 1000);
 
@@ -447,81 +452,105 @@ boton.addEventListener("click", () => {
 import * as THREE from "three";
 
 // =================================
-// PRIMER CUBO 3D
+// CUBO 3D
 // =================================
 
-const escena = new THREE.Scene();
+function iniciarCubo3D() {
 
-const camara = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-);
-
-const renderizador =
-    new THREE.WebGLRenderer({
-        antialias: true
-    });
-
-renderizador.setSize(
-    window.innerWidth,
-    window.innerHeight
-);
-
-renderizador.setClearColor(0x000000);
-
-document.body.appendChild(
-    renderizador.domElement
-);
+    const escena =
+        new THREE.Scene();
 
 
-// =================================
-// CUBO ROJO
-// =================================
+    const camara =
+        new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
 
-const geometria =
-    new THREE.BoxGeometry(
-        2,
-        2,
-        2
+
+    const renderizador =
+        new THREE.WebGLRenderer({
+            antialias: true
+        });
+
+
+    renderizador.setSize(
+        window.innerWidth,
+        window.innerHeight
     );
 
-const material =
-    new THREE.MeshBasicMaterial({
-        color: 0xff0000
-    });
 
-const cubo =
-    new THREE.Mesh(
-        geometria,
-        material
+    renderizador.setClearColor(
+        0x000000
     );
 
-escena.add(cubo);
 
-
-// =================================
-// POSICIÓN DE LA CÁMARA
-// =================================
-
-camara.position.z = 5;
-
-
-// =================================
-// ANIMACIÓN
-// =================================
-
-function animarCubo() {
-
-    requestAnimationFrame(
-        animarCubo
+    document.body.appendChild(
+        renderizador.domElement
     );
 
-    renderizador.render(
-        escena,
-        camara
-    );
+
+    // =============================
+    // CUBO ROJO
+    // =============================
+
+    const geometria =
+        new THREE.BoxGeometry(
+            2,
+            2,
+            2
+        );
+
+
+    const material =
+        new THREE.MeshBasicMaterial({
+            color: 0xff0000
+        });
+
+
+    const cubo =
+        new THREE.Mesh(
+            geometria,
+            material
+        );
+
+
+    escena.add(cubo);
+
+
+    // =============================
+    // CÁMARA
+    // =============================
+
+    camara.position.z = 5;
+
+
+    // =============================
+    // ANIMACIÓN
+    // =============================
+
+    function animarCubo() {
+
+        requestAnimationFrame(
+            animarCubo
+        );
+
+
+        cubo.rotation.x += 0.01;
+
+        cubo.rotation.y += 0.01;
+
+
+        renderizador.render(
+            escena,
+            camara
+        );
+
+    }
+
+
+    animarCubo();
+
 }
-
-animarCubo();
