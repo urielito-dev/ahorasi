@@ -12,17 +12,36 @@
 
     <title>Felices 4 meses ❤️</title>
 
+
+    <!-- =========================
+         CSS
+         ========================= -->
+
     <link
         rel="stylesheet"
         href="css/style.css"
     >
 
+
+    <!-- =========================
+         THREE.JS
+         ========================= -->
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+    </script>
+
 </head>
+
 
 <body>
 
     <!-- =========================
-         CIELO
+         CIELO ESTRELLADO
          ========================= -->
 
     <canvas id="estrellas"></canvas>
@@ -34,7 +53,10 @@
 
     <main class="contenedor">
 
-        <!-- Corazón -->
+
+        <!-- =========================
+             CORAZÓN
+             ========================= -->
 
         <div class="corazon-contenedor">
 
@@ -45,46 +67,60 @@
         </div>
 
 
-        <!-- Título -->
+        <!-- =========================
+             TÍTULO
+             ========================= -->
 
-        <h1>
+        <h1 id="titulo">
             Felices 4 meses
         </h1>
 
 
-        <!-- Botón -->
+        <!-- =========================
+             BOTÓN
+             ========================= -->
 
         <button id="boton">
+
             Presiona para verlo amorcito ❤️
+
         </button>
+
+
+        <!-- =========================
+             BARRA DE CARGA
+             ========================= -->
 
         <div id="carga-contenedor">
 
             <div class="barra-fondo">
+
                 <div id="barra"></div>
+
             </div>
 
+
             <div id="porcentaje">
+
                 0%
+
             </div>
 
         </div>
 
+
     </main>
 
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
-        }
-    }
-    </script>
-    
+
+    <!-- =========================
+         JAVASCRIPT
+         ========================= -->
+
     <script
         type="module"
         src="js/script.js"
     ></script>
+
 
 </body>
 
