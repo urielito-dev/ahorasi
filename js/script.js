@@ -431,28 +431,6 @@ boton.addEventListener("click", () => {
 
                     document.body.style.background = "#000";
 
-                    // Crear cuadro rojo
-                    const cuadroRojo =
-                        document.createElement("div");
-
-                    cuadroRojo.style.position = "fixed";
-
-                    cuadroRojo.style.width = "200px";
-
-                   cuadroRojo.style.height = "200px";
-
-                    cuadroRojo.style.background = "red";
-
-                    cuadroRojo.style.left = "50%";
-
-                    cuadroRojo.style.top = "50%";
-
-                    cuadroRojo.style.transform =
-                        "translate(-50%, -50%)";
-
-                    document.body.appendChild(
-                        cuadroRojo
-                    );
 
                 }, 1000);
 
