@@ -388,9 +388,6 @@ animar();
 // BARRA DE CARGA
 // =================================
 
-const boton =
-    document.getElementById("boton");
-
 const cargaContenedor =
     document.getElementById("carga-contenedor");
 
