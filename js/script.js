@@ -439,3 +439,11 @@ boton.addEventListener("click", () => {
         }, 50);
 
 });
+
+// =================================
+// PRUEBA 3D
+// =================================
+
+import * as THREE from "three";
+
+console.log("Three.js funciona");
