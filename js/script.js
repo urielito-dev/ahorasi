@@ -384,3 +384,52 @@ function animar() {
 
 
 animar();
+// =================================
+// BARRA DE CARGA
+// =================================
+
+const boton =
+    document.getElementById("boton");
+
+const cargaContenedor =
+    document.getElementById("carga-contenedor");
+
+const barra =
+    document.getElementById("barra");
+
+const porcentaje =
+    document.getElementById("porcentaje");
+
+
+boton.addEventListener("click", () => {
+
+    // Ocultar botón
+    boton.style.display = "none";
+
+    // Mostrar barra
+    cargaContenedor.style.display =
+        "block";
+
+    // Progreso
+    let progreso = 0;
+
+    const intervalo =
+        setInterval(() => {
+
+            progreso++;
+
+            barra.style.width =
+                progreso + "%";
+
+            porcentaje.textContent =
+                progreso + "%";
+
+            if (progreso >= 100) {
+
+                clearInterval(intervalo);
+
+            }
+
+        }, 50);
+
+});
