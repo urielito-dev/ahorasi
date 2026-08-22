@@ -446,4 +446,82 @@ boton.addEventListener("click", () => {
 
 import * as THREE from "three";
 
-console.log("Three.js funciona");
+// =================================
+// PRIMER CUBO 3D
+// =================================
+
+const escena = new THREE.Scene();
+
+const camara = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+);
+
+const renderizador =
+    new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+renderizador.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+renderizador.setClearColor(0x000000);
+
+document.body.appendChild(
+    renderizador.domElement
+);
+
+
+// =================================
+// CUBO ROJO
+// =================================
+
+const geometria =
+    new THREE.BoxGeometry(
+        2,
+        2,
+        2
+    );
+
+const material =
+    new THREE.MeshBasicMaterial({
+        color: 0xff0000
+    });
+
+const cubo =
+    new THREE.Mesh(
+        geometria,
+        material
+    );
+
+escena.add(cubo);
+
+
+// =================================
+// POSICIÓN DE LA CÁMARA
+// =================================
+
+camara.position.z = 5;
+
+
+// =================================
+// ANIMACIÓN
+// =================================
+
+function animarCubo() {
+
+    requestAnimationFrame(
+        animarCubo
+    );
+
+    renderizador.render(
+        escena,
+        camara
+    );
+}
+
+animarCubo();
