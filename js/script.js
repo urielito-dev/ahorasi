@@ -451,6 +451,9 @@ boton.addEventListener("click", () => {
 
 import * as THREE from "three";
 
+import { OrbitControls } from
+    "three/addons/controls/OrbitControls.js";
+
 // =================================
 // CUBO 3D
 // =================================
@@ -526,6 +529,20 @@ function iniciarCubo3D() {
 
     camara.position.z = 5;
 
+    // =============================
+    // CONTROLES DE CÁMARA
+    // =============================
+
+    const controles =
+        new OrbitControls(
+            camara,
+            renderizador.domElement
+        );
+
+    controles.enableDamping = true;
+
+    controles.dampingFactor = 0.05;
+
 
     // =============================
     // ANIMACIÓN
@@ -541,6 +558,27 @@ function iniciarCubo3D() {
         cubo.rotation.x += 0.01;
 
         cubo.rotation.y += 0.01;
+
+        function animarCubo() {
+
+    requestAnimationFrame(
+        animarCubo
+    );
+
+
+    cubo.rotation.x += 0.01;
+
+    cubo.rotation.y += 0.01;
+
+
+    controles.update();
+
+    renderizador.render(
+        escena,
+        camara
+    );
+
+}
 
 
         renderizador.render(
