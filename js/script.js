@@ -425,6 +425,12 @@ boton.addEventListener("click", () => {
 
                 clearInterval(intervalo);
 
+                setTimeout(() => {
+
+                    document.querySelector(".contenedor").style.display = "none";
+
+                }, 1000);
+
             }
 
         }, 50);
